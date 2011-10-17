@@ -3,6 +3,7 @@ App::import('Vendor', 'Brita.HTMLPurifier', array('file' => 'htmlpurifier' . DS 
 
 class BritaComponent extends Object { 
 
+	// DPTODO (ben@dailypath.com): Move all of these into a config file to allow for use in a behavior as well
 	public $Controller;
 	
 	public $definition_id = 'brita definitions';
@@ -14,6 +15,8 @@ class BritaComponent extends Object {
 	public $doctype = 'XHTML 1.0 Transitional';
 	
 	public $encoding = 'ISO-8859-1';
+	
+	public $removeSpansWithoutAttributes = true;
 
 	function initialize(&$Controller) { 
 		
@@ -26,7 +29,10 @@ class BritaComponent extends Object {
         $config->set('HTML.TidyLevel', $this->tidy_level); 
         //check the top of your html file for the next two 
         $config->set('HTML.Doctype', $this->doctype); 
-        $config->set('Core.Encoding', $this->encoding); 
+        $config->set('Core.Encoding', $this->encoding);
+		$config->set('AutoFormat.RemoveSpansWithoutAttributes', $this->removeSpansWithoutAttributes);
+
+		$config->set('Cache.SerializerPath', CACHE);
          
         //BritaComponent instance of controller is replaced by a htmlpurifier instance 
         $Controller->Brita =& new HTMLPurifier($config); 
