@@ -13,8 +13,12 @@ Installation and Usage:
 1. Clone or download and decompress repository into `app/vendors/brita`.
 1. Import the `Brita` component in your controller.
 
-	`var $components = array('Brita');`	
+	```php
+	var $components = array('Brita');
+	```	
 
 1. Use the component clean method to purify content.
 
-	`$clean_content = $this->Brita->purify($dirty_content);`
+	```php
+	$clean_content = $this->Brita->purify($dirty_content);
+	```
