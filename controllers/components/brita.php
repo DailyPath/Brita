@@ -17,6 +17,8 @@ class BritaComponent extends Object {
 	public $encoding = 'ISO-8859-1';
 	
 	public $removeSpansWithoutAttributes = true;
+	
+	public $html_allowed = 'a[href],a,img[src],p,strong,em,h1,h2,h3,h4,h5,h6,hr,ul,ol,li';
 
 	function initialize(&$Controller) { 
 		
@@ -27,12 +29,15 @@ class BritaComponent extends Object {
         //levels describe how aggressive the Tidy module should be when cleaning up html 
         //four levels: none, light, medium, heavy 
         $config->set('HTML.TidyLevel', $this->tidy_level); 
+		// HTML tags allowed
+		$config->set('HTML.Allowed', $this->html_allowed);
+		// Don't allow any CSS properties
+		$config->set('CSS.AllowedProperties', NULL);
         //check the top of your html file for the next two 
         $config->set('HTML.Doctype', $this->doctype); 
         $config->set('Core.Encoding', $this->encoding);
-		$config->set('AutoFormat.RemoveSpansWithoutAttributes', $this->removeSpansWithoutAttributes);
 
-		$config->set('Cache.SerializerPath', CACHE);
+		$config->set('Cache.SerializerPath', rtrim(CACHE, '/'));
          
         //BritaComponent instance of controller is replaced by a htmlpurifier instance 
         $Controller->Brita =& new HTMLPurifier($config); 
