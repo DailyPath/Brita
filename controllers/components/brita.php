@@ -10,11 +10,11 @@ class BritaComponent extends Object {
 	
 	public $definition_revision = 1;
 	
-	public $tidy_level = 'heavy';
+	public $tidy_level = 'medium';
 	
 	public $doctype = 'XHTML 1.0 Transitional';
 	
-	public $encoding = 'ISO-8859-1';
+	public $encoding = 'UTF-8';
 	
 	public $removeSpansWithoutAttributes = true;
 	
@@ -38,6 +38,9 @@ class BritaComponent extends Object {
         $config->set('Core.Encoding', $this->encoding);
 
 		$config->set('Cache.SerializerPath', rtrim(CACHE, '/'));
+		
+		$config->set('AutoFormat.RemoveEmpty', true);
+		$config->set('AutoFormat.RemoveEmpty.RemoveNbsp', true);
          
         //BritaComponent instance of controller is replaced by a htmlpurifier instance 
         $Controller->Brita =& new HTMLPurifier($config); 
